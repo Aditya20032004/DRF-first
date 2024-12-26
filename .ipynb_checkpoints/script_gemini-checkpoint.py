@@ -15,8 +15,9 @@ def generate_and_commit():
     response = model.generate_content('''You are an expert at creating a github commit message for a set of changes. Here is a diff of changes we need a commit message for:''' + str(git_changes))
     commit_message = response.text  # Extract the text from the response
     subprocess.run(["git", "add", "."])
-    subprocess.run(["git", "commit", "-m", commit_message]) 
-    print("Changes committed successfully!")
+    subprocess.run(["git", "commit", "-m", commit_message])
+    subprocess.run(["git", "push"])  # Push the committed changes
+    print("Changes committed and pushed successfully!")
   else:
     print("No changes detected. Skipping commit message generation.")
 
